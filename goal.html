@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monthly sales target - Online Marketplace</title>
+  <link rel="stylesheet" href="css/seller.css">
+</head>
+<body data-page="goal">
+  <section id="app" class="app">
+    <nav class="side">
+      <p class="logo">Seller</p>
+      <a class="tab" href="items.html">My items</a>
+      <a class="tab" href="price.html">Smart price calculator</a>
+      <a class="tab" href="flash.html">Flash sale timer</a>
+      <a class="tab" href="combo.html">Combo offer builder</a>
+      <a class="tab" href="reply.html">Quick reply templates</a>
+      <a class="tab on" href="goal.html">Monthly sales target</a>
+    </nav>
+    <main class="main">
+      <header class="top">
+        <h2>Monthly sales target</h2>
+        <section class="who">
+          <p id="who"></p>
+          <button class="btn ghost sm" id="logout">Log out</button>
+        </section>
+      </header>
+      <section id="v-goal">
+        <section class="grid2">
+          <section class="panel form-grid">
+            <p class="note">Set your target for this month, then add each day's sales.</p>
+            <label for="gTarget">Target for this month (Tk)</label>
+            <input type="number" id="gTarget" min="0" placeholder="Example: 50000">
+            <hr>
+            <label for="gAmt">Today's sales (Tk)</label>
+            <input type="number" id="gAmt" min="1">
+            <label for="gNote">Note (optional)</label>
+            <input type="text" id="gNote" placeholder="Example: 3 sarees sold">
+            <button class="btn gold" id="gAdd" type="button">Add sales</button>
+            <p class="msg" id="gMsg"></p>
+          </section>
+          <section class="panel">
+            <h3 id="gTitle">Monthly target</h3>
+            <section class="prog" id="gProg"><span id="gBar"></span></section>
+            <section class="out">
+              <p>Sold so far <b id="gSold">0</b></p>
+              <p>Still to go <b id="gLeft">0</b></p>
+              <p>Days left this month <b id="gDays">0</b></p>
+              <p>Sell per day from now <b class="big" id="gPer">0</b></p>
+            </section>
+            <p class="note" id="gHint"></p>
+          </section>
+        </section>
+        <section class="panel space-t">
+          <h3>Sales added this month</h3>
+          <section id="gList"></section>
+        </section>
+      </section>
+      <footer>&copy; 2026 Online Marketplace-Dhaka,Bangladesh</footer>
+    </main>
+  </section>
+  <script src="js/seller-data.js"></script>
+  <script src="js/seller-app.js"></script>
+</body>
+</html>
