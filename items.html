@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My items - Online Marketplace</title>
+  <link rel="stylesheet" href="css/seller.css">
+</head>
+<body data-page="items">
+  <section id="app" class="app">
+    <nav class="side">
+      <p class="logo">Seller</p>
+      <a class="tab on" href="items.html">My items</a>
+      <a class="tab" href="price.html">Smart price calculator</a>
+      <a class="tab" href="flash.html">Flash sale timer</a>
+      <a class="tab" href="combo.html">Combo offer builder</a>
+      <a class="tab" href="reply.html">Quick reply templates</a>
+      <a class="tab" href="goal.html">Monthly sales target</a>
+    </nav>
+    <main class="main">
+      <header class="top">
+        <h2>My items</h2>
+        <section class="who">
+          <p id="who"></p>
+          <button class="btn ghost sm" id="logout">Log out</button>
+        </section>
+      </header>
+      <section id="v-items">
+        <section class="panel space-b">
+          <form class="row-form" id="iForm">
+            <label for="iaName">Item Name</label>
+            <input type="text" id="iaName">
+            <label for="iaPrice">Price (Tk)</label>
+            <input type="number" id="iaPrice" min="1">
+            <label for="iaUnit">Unit</label>
+            <input type="text" id="iaUnit" placeholder="1 kg">
+            <label for="iaCat">Category</label>
+            <select id="iaCat"></select>
+            <button class="btn gold" type="submit">Add item</button>
+          </form>
+        </section>
+        <section class="panel">
+          <section class="row-form" id="iFilter">
+            <label for="iSearch">Search</label>
+            <input type="text" id="iSearch" placeholder="Search rice, oil, soap">
+            <label for="iCat">Category</label>
+            <select id="iCat"></select>
+            <p class="note" id="iCount"></p>
+          </section>
+          <section class="scroll" id="iTable">
+            <table>
+              <thead>
+                <tr><th>Item</th><th>Category</th><th>Unit</th><th>Price</th><th>Action</th></tr>
+              </thead>
+              <tbody id="iBody"></tbody>
+            </table>
+          </section>
+        </section>
+      </section>
+      <footer>&copy; 2026 Online Marketplace-Dhaka,Bangladesh</footer>
+    </main>
+  </section>
+  <script src="js/seller-data.js"></script>
+  <script src="js/seller-app.js"></script>
+</body>
+</html>
