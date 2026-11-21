@@ -9,10 +9,10 @@ Open `index.html` (the Home page) in a browser and choose a role.
 
 | Role | Member | Pages |
 |---|---|---|
-| Admin | Fahim Muntasir Abrar (24-59952-3) | `login.html`, `admin.html` |
-| Seller | Dipta | `seller-login.html`, `seller-signup.html`, `items.html`, `price.html`, `flash.html`, `combo.html`, `reply.html`, `goal.html` |
-| Customer | Mehedi Hasan Robel | `customer-login.html`, `customer-signup.html`, `customer.html` |
-| Delivery operator | Md. Tanver Ahmed | `delivery-login.html`, `delivery-register.html`, `delivery.html` |
+| Admin | Fahim Muntasir (24-59952-3) | `login.html`, `admin.html` |
+| Seller | Dipta Chowdhury (23-54119-3) | `seller-login.html`, `seller-signup.html`, `items.html`, `price.html`, `flash.html`, `combo.html`, `reply.html`, `goal.html` |
+| Customer | Mehedi Hasan Robel (23-51209-1) | `customer-login.html`, `customer-signup.html`, `customer.html` |
+| Delivery operator | Md. Tanver Ahmed (24-56318-1) | `delivery-login.html`, `delivery-register.html`, `delivery.html` |
 
 Admin demo login: `admin` / `admin1234`.
 
