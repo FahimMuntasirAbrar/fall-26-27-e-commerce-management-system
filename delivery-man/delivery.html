@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Delivery man dashboard of the E-Commerce system">
+  <title>Delivery Dashboard | E-Commerce</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="header">
+    <a href="delivery-login.html" class="logo">E-<span>Commerce</span></a>
+    <div class="user-info">
+      <span class="badge delivery">Delivery</span>
+      <span>Welcome, Kamal Hossain</span>
+      <a href="delivery-login.html" class="btn btn-small btn-light">Logout</a>
+    </div>
+  </header>
+
+  <nav class="topnav">
+    <button type="button" id="nav-ordersSection" onclick="showSection('ordersSection')">My Orders</button>
+    <button type="button" id="nav-notesSection" onclick="showSection('notesSection')">Delivery Notes</button>
+    <button type="button" id="nav-routeSection" onclick="showSection('routeSection')">Route Planner</button>
+    <button type="button" id="nav-earningsSection" onclick="showSection('earningsSection')">Earnings &amp; Cash</button>
+  </nav>
+
+  <main class="container">
+
+    <!-- =========================================================
+         UNIQUE FEATURE 1: MY ORDERS AND STATUS UPDATE
+         ========================================================= -->
+    <section id="ordersSection" class="page-section">
+      <h2 class="page-title">My Orders</h2>
+      <p class="page-subtitle" id="orderSummary"></p>
+
+      <div id="orderMessage" class="message"></div>
+
+      <!-- Appears when you press "Failed" on an order: asks for the reason -->
+      <div id="failBox" class="card fail-box">
+        <h3 id="failTitle">Why could the order not be delivered?</h3>
+        <input type="text" id="failReason" placeholder="e.g. Customer was not at home">
+        <span class="error" id="failReasonError"></span>
+        <p>
+          <button type="button" class="btn btn-danger" onclick="confirmFailed()">Save as Failed</button>
+          <button type="button" class="btn btn-secondary" onclick="closeFailBox()">Cancel</button>
+        </p>
+      </div>
+
+      <!-- Statistic tiles laid out with CSS Grid; numbers are filled by JavaScript -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="statActive">0</div>
+          <div class="stat-label">Active orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statDelivered">0</div>
+          <div class="stat-label">Delivered</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statFailed">0</div>
+          <div class="stat-label">Failed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="statCash">0 Tk</div>
+          <div class="stat-label">COD cash with me</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Orders assigned to me</h3>
+        <div class="search-bar">
+          <input type="text" id="orderSearch" placeholder="Search by order id, customer, area or item..." onkeyup="renderOrders()">
+          <select id="orderStatusFilter" onchange="renderOrders()">
+            <option value="All">Any status</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Picked Up">Picked Up</option>
+            <option value="Out for Delivery">Out for Delivery</option>
+            <option value="Delivered">Delivered</option>
+            <option value="Failed">Failed</option>
+          </select>
+        </div>
+        <p class="result-count" id="orderCount"></p>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>ID</th><th>Customer</th><th>Address</th><th>Item</th><th>Payment</th><th>Status</th><th>Next step</th></tr>
+            </thead>
+            <tbody id="orderTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Open orders waiting for a delivery man</h3>
+        <p class="hint" id="openRules"></p>
+        <div class="table-wrapper">
+          <table class="data-table">
+            <thead>
+              <tr><th>ID</th><th>Area</th><th>Item</th><th>Payment</th><th>Action</th></tr>
+            </thead>
+            <tbody id="openTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         DELIVERY NOTES: Create, Read, Update, Delete and Search
+         ========================================================= -->
+    <section id="notesSection" class="page-section">
+      <h2 class="page-title">Delivery Notes</h2>
+      <p class="page-subtitle">Write down what happened on a delivery: a failed attempt, a customer request or a damaged parcel.</p>
+
+      <div id="noteMessage" class="message"></div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <h3 id="noteFormTitle">New Note</h3>
+            <form id="noteForm" onsubmit="return saveNote()">
+              <fieldset>
+                <legend>Note Details</legend>
+                <table class="form-table">
+                  <tr>
+                    <td><label for="noteOrder">Order:</label></td>
+                    <td>
+                      <select id="noteOrder"></select>
+                      <span class="error" id="noteOrderError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Note type:</td>
+                    <td>
+                      <input type="radio" id="typeDelivered" name="noteType" value="Delivered">
+                      <label for="typeDelivered" class="option-label">Delivered</label>
+                      <input type="radio" id="typeFailed" name="noteType" value="Failed Attempt">
+                      <label for="typeFailed" class="option-label">Failed attempt</label>
+                      <br>
+                      <input type="radio" id="typeCustomer" name="noteType" value="Customer Note">
+                      <label for="typeCustomer" class="option-label">Customer note</label>
+                      <input type="radio" id="typeDamage" name="noteType" value="Damage Report">
+                      <label for="typeDamage" class="option-label">Damage report</label>
+                      <span class="error" id="noteTypeError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="noteDate">Date:</label></td>
+                    <td>
+                      <input type="date" id="noteDate">
+                      <span class="error" id="noteDateError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="noteText">Note:</label></td>
+                    <td>
+                      <textarea id="noteText" rows="4" cols="30" placeholder="What happened?" onkeyup="countNoteCharacters()"></textarea>
+                      <span class="hint" id="noteCounter">0 / 200</span>
+                      <span class="error" id="noteTextError"></span>
+                    </td>
+                  </tr>
+                </table>
+              </fieldset>
+              <input type="submit" id="noteSaveButton" class="btn" value="Save Note">
+              <button type="button" class="btn btn-secondary" onclick="resetNoteForm()">Cancel</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-wide">
+          <div class="card">
+            <h3>My notes</h3>
+            <div class="search-bar">
+              <input type="text" id="noteSearch" placeholder="Search by note, order id or id..." onkeyup="renderNotes()">
+              <select id="noteTypeFilter" onchange="renderNotes()">
+                <option value="All">Any type</option>
+                <option value="Delivered">Delivered</option>
+                <option value="Failed Attempt">Failed attempt</option>
+                <option value="Customer Note">Customer note</option>
+                <option value="Damage Report">Damage report</option>
+              </select>
+            </div>
+            <p class="result-count" id="noteCount"></p>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>ID</th><th>Order</th><th>Type</th><th>Date</th><th>Note</th><th>Actions</th></tr>
+                </thead>
+                <tbody id="noteTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         UNIQUE FEATURE 2: ROUTE PLANNER
+         ========================================================= -->
+    <section id="routeSection" class="page-section">
+      <h2 class="page-title">Route Planner</h2>
+      <p class="page-subtitle">Put your active orders in a smart order of areas and see when you will finish.</p>
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <h3>Plan my route</h3>
+            <form id="routeForm" onsubmit="return planRoute()" novalidate>
+              <fieldset>
+                <legend>Route options</legend>
+                <table class="form-table">
+                  <tr>
+                    <td><label for="routeHour">Hour (0-23):</label></td>
+                    <td>
+                      <input type="number" id="routeHour" min="0" max="23" value="10">
+                      <span class="error" id="routeHourError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="routeMinute">Minute (0-59):</label></td>
+                    <td>
+                      <input type="number" id="routeMinute" min="0" max="59" value="0">
+                      <span class="error" id="routeMinuteError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Order of areas:</td>
+                    <td>
+                      <input type="radio" id="routeNear" name="routeOrder" value="Nearest" checked>
+                      <label for="routeNear" class="option-label">Nearest first</label>
+                      <input type="radio" id="routeFar" name="routeOrder" value="Farthest">
+                      <label for="routeFar" class="option-label">Farthest first</label>
+                      <span class="error" id="routeOrderError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Include:</td>
+                    <td>
+                      <input type="checkbox" id="routeCodOnly" onchange="planRoute()">
+                      <label for="routeCodOnly" class="option-label">Only cash-on-delivery orders</label>
+                    </td>
+                  </tr>
+                </table>
+              </fieldset>
+              <input type="submit" class="btn" value="Plan Route">
+            </form>
+            <div class="result-box" id="routeSummary">Press "Plan Route" to see your stops.</div>
+          </div>
+        </div>
+
+        <div class="col-wide">
+          <div class="card">
+            <h3>Stops in order</h3>
+            <div id="routeList"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- =========================================================
+         UNIQUE FEATURE 3: EARNINGS AND CASH CALCULATOR
+         ========================================================= -->
+    <section id="earningsSection" class="page-section">
+      <h2 class="page-title">Earnings &amp; Cash</h2>
+      <p class="page-subtitle" id="earningRules"></p>
+
+      <div id="cashMessage" class="message"></div>
+
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <h3>Earnings calculator</h3>
+            <!-- novalidate: the browser's own min/max pop-up is switched off,
+                 so our JavaScript validation shows the red error messages -->
+            <form id="earningForm" onsubmit="return calculateEarnings()" novalidate>
+              <fieldset>
+                <legend>Today's work</legend>
+                <table class="form-table">
+                  <tr>
+                    <td><label for="earnCount">Orders delivered:</label></td>
+                    <td>
+                      <input type="number" id="earnCount" min="0" max="50" value="0">
+                      <span class="error" id="earnCountError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><label for="earnKm">Distance (km):</label></td>
+                    <td>
+                      <input type="number" id="earnKm" min="0" max="200" value="0">
+                      <span class="error" id="earnKmError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Vehicle:</td>
+                    <td>
+                      <input type="radio" id="earnBike" name="earnVehicle" value="Bike">
+                      <label for="earnBike" class="option-label">Bike</label>
+                      <input type="radio" id="earnCycle" name="earnVehicle" value="Cycle">
+                      <label for="earnCycle" class="option-label">Cycle</label>
+                      <input type="radio" id="earnVan" name="earnVehicle" value="Van">
+                      <label for="earnVan" class="option-label">Van</label>
+                      <span class="error" id="earnVehicleError"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Extras:</td>
+                    <td>
+                      <input type="checkbox" id="earnRain" name="earnExtra" value="Rain">
+                      <label for="earnRain" class="option-label">Rainy day</label>
+                      <input type="checkbox" id="earnNight" name="earnExtra" value="Night">
+                      <label for="earnNight" class="option-label">Night delivery</label>
+                    </td>
+                  </tr>
+                </table>
+              </fieldset>
+              <input type="submit" class="btn btn-success" value="Calculate">
+              <button type="button" class="btn btn-secondary" onclick="fillFromMyDeliveries()">Fill from my deliveries</button>
+            </form>
+            <div class="result-box" id="earningResult">Fill in the form and press Calculate.</div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card">
+            <h3>COD cash to hand in</h3>
+            <p class="hint">Cash you collected from customers must be given to the company.</p>
+            <div class="table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr><th>Order</th><th>Customer</th><th>Cash</th><th>Deposited?</th></tr>
+                </thead>
+                <tbody id="cashTableBody"></tbody>
+              </table>
+            </div>
+            <div class="result-box" id="cashTotal"></div>
+            <button type="button" class="btn" onclick="depositCash()">Mark all cash as deposited</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    &copy; 2026 E-Commerce &middot; CSC 3215 Web Technologies
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/delivery.js"></script>
+</body>
+</html>
