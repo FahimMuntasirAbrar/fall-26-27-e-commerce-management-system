@@ -1,79 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Log in to the Online Marketplace">
-  <title>Log in | Online Marketplace</title>
-  <link rel="icon" href="assets/img/favicon.png">
-  <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Marketplace - Customer Login</title>
+    <!-- Linking external CSS file (Code Separation) -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <header>
-    <span>Online Marketplace</span>
-    <button type="button" id="themeBtn" onclick="toggleDarkMode()">&#9790; Dark mode</button>
-  </header>
+<body class="auth-body">
 
-  <main class="login-box">
-    <div class="card">
-      <h2>Log in</h2>
-      <p class="muted-note">One login for everyone: admins, sellers, customers and delivery operators.
-        The right dashboard opens for your account.</p>
+    <!-- Auth Container -->
+    <div class="auth-container">
+        
+        <!-- Brand Header -->
+        <div class="auth-header">
+            <div class="auth-logo">🛒 Online Marketplace</div>
+            <p class="auth-subtitle">Customer Portal Sign In</p>
+        </div>
 
-      <div id="loginMessage" class="message"></div>
+        <!-- Login Card -->
+        <div class="card auth-card">
+            <h2>Welcome Back!</h2>
+            <p class="auth-instruction">Please enter your credentials to access your customer dashboard.</p>
 
-      <!-- onsubmit="return validateLogin()": return false keeps the user on this page.
-           The password input has no name, so it is never sent in a URL. -->
-      <form id="loginForm" onsubmit="return validateLogin()">
-        <fieldset>
-          <legend>Your account</legend>
-          <label for="username">Username or email</label>
-          <input type="text" id="username" name="username" placeholder="e.g. admin">
-          <span class="error" id="usernameError"></span>
+            <!-- Success / Status Alert Box -->
+            <div id="loginAlert" class="alert-box success-alert" style="display: none;"></div>
 
-          <label for="password">Password</label>
-          <input type="password" id="password" placeholder="Your password">
-          <span class="error" id="passwordError"></span>
+            <!-- Login Form -->
+            <form id="loginForm" novalidate>
 
-          <input type="checkbox" id="showPassword" onchange="togglePassword()">
-          <label for="showPassword" class="option-label">Show password</label>
-        </fieldset>
-        <button type="submit" class="main">Log in</button>
-      </form>
+                <!-- Email Input -->
+                <div class="form-group">
+                    <label for="loginEmail">Email Address: <span class="required">*</span></label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="e.g. mehedi@example.com">
+                    <span id="loginEmailErr" class="error-msg">Please enter a valid email address.</span>
+                </div>
+
+                <!-- Password Input with Show/Hide toggle -->
+                <div class="form-group">
+                    <label for="loginPassword">Password: <span class="required">*</span></label>
+                    <div class="password-wrapper">
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password">
+                        <button type="button" class="btn-toggle-pw" onclick="togglePasswordVisibility('loginPassword', this)">Show</button>
+                    </div>
+                    <span id="loginPasswordErr" class="error-msg">Password must be at least 6 characters long.</span>
+                </div>
+
+                <!-- Remember Me & Forgot Password -->
+                <div class="auth-options">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe"> Remember me
+                    </label>
+                    <a href="#" class="auth-link" onclick="handleForgotPassword(event)">Forgot Password?</a>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary btn-block">Log In to Customer Portal</button>
+            </form>
+
+            <!-- Switch to Signup Link -->
+            <div class="auth-footer">
+                <p>New to Online Marketplace? <a href="signup.html" class="auth-link-bold">Create a Customer Account</a></p>
+                <p class="demo-credential-hint">💡 Demo: You can test with <strong>mehedi.hasan@example.com</strong> and password <strong>pass123</strong></p>
+            </div>
+        </div>
+
+        <!-- Simple Footer -->
+        <footer class="auth-page-footer">
+            <p>© 2026 Online Marketplace E-Commerce Management System. Customer Portal.</p>
+        </footer>
+
     </div>
 
-    <div class="card">
-      <h2>Demo accounts</h2>
-      <p class="muted-note">Click "Use" to fill the form, then press Log in.</p>
-      <table>
-        <tr>
-          <td><span class="badge role-admin">Admin</span></td>
-          <td>admin / admin1234</td>
-          <td><button type="button" onclick="fillDemo('admin', 'admin1234')">Use</button></td>
-        </tr>
-        <tr>
-          <td><span class="badge role-seller">Seller</span></td>
-          <td>seller / seller123</td>
-          <td><button type="button" onclick="fillDemo('seller', 'seller123')">Use</button></td>
-        </tr>
-        <tr>
-          <td><span class="badge orange">Pending</span></td>
-          <td>tea / tea12345</td>
-          <td><button type="button" onclick="fillDemo('tea', 'tea12345')">Use</button></td>
-        </tr>
-        <tr>
-          <td><span class="badge red">Blocked</span></td>
-          <td>tanvir / tanvir1234</td>
-          <td><button type="button" onclick="fillDemo('tanvir', 'tanvir1234')">Use</button></td>
-        </tr>
-      </table>
-      <p class="muted-note" style="margin-top:10px">The pending seller cannot log in until the admin approves the shop
-        in <em>Seller approvals</em>; the blocked customer is refused until the admin unblocks the account.</p>
-    </div>
-  </main>
-
-  <script src="js/data.js"></script>
-  <script src="js/common.js"></script>
-  <script src="js/login.js"></script>
+    <!-- Linking external JS file (Code Separation) -->
+    <script src="js/auth.js"></script>
 </body>
 </html>
