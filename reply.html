@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick reply templates - Online Marketplace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="reply">
+  <section id="app" class="app">
+    <nav class="side">
+      <p class="logo">Seller</p>
+      <a class="tab" href="items.html">My items</a>
+      <a class="tab" href="price.html">Smart price calculator</a>
+      <a class="tab" href="flash.html">Flash sale timer</a>
+      <a class="tab" href="combo.html">Combo offer builder</a>
+      <a class="tab on" href="reply.html">Quick reply templates</a>
+      <a class="tab" href="goal.html">Monthly sales target</a>
+    </nav>
+    <main class="main">
+      <header class="top">
+        <h2>Quick reply templates</h2>
+        <section class="who">
+          <p id="who"></p>
+          <button class="btn ghost sm" id="logout">Log out</button>
+        </section>
+      </header>
+      <section id="v-reply">
+        <section class="grid2">
+          <section class="panel form-grid">
+            <p class="note">Fill the customer details once. Press Copy and paste the message in Messenger or WhatsApp.</p>
+            <label for="qName">Customer Name</label>
+            <input type="text" id="qName" placeholder="Example: Rahim">
+            <label for="qOrder">Order Number</label>
+            <input type="text" id="qOrder" placeholder="Example: #1042">
+            <hr>
+            <label for="qNew">Your own message (use {name} and {order})</label>
+            <textarea id="qNew" rows="3"></textarea>
+            <button class="btn ghost" id="qAdd" type="button">Add message</button>
+          </section>
+          <section class="panel">
+            <h3>Ready messages</h3>
+            <section id="qList"></section>
+          </section>
+        </section>
+      </section>
+      <footer>&copy; 2026 Online Marketplace-Dhaka,Bangladesh</footer>
+    </main>
+  </section>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

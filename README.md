@@ -1,37 +1,23 @@
-# Online Marketplace (E-Commerce Management System)
+# Online Marketplace - Seller (Dipta)
 
-CSC 3215 Web Technologies, Fall 2026-27, Project Prototype 1. Frontend only: HTML pages and forms,
-CSS in the `css` folder, JavaScript in the `js` folder, JavaScript form validation and DOM manipulation.
+A vanilla HTML, CSS, and JavaScript seller web application built for managing seller accounts, product listings, smart pricing and profit margins, live flash sale timers, combo offers, customer quick-reply templates, and monthly sales goals using `localStorage`.
 
-## How to run
+## Project Structure
 
-Open `index.html` (the Home page) in a browser and choose a role.
+- `index.html` — Seller login page (`#loginForm`)
+- `signup.html` — New seller account registration page (`#signupForm`)
+- `items.html` — Product catalog management with category filtering, search, item creation, and deletion
+- `price.html` — Smart price calculator with cost, packaging, courier, platform fee, profit percentage, break-even price, and custom price profit check
+- `flash.html` — Live countdown flash sale timer with discount calculation and manual end controls
+- `combo.html` — Multi-item combo offer builder with live discount preview and saved combo list
+- `reply.html` — Quick reply templates supporting `{name}` and `{order}` placeholders, custom templates, and clipboard copy
+- `goal.html` — Monthly sales target tracker with progress bar, days remaining, required daily sales, and daily sales log
+- `css/style.css` — Layout, responsive grid, forms, tables, timers, and progress bar styles
+- `js/data.js` — Starter categories (`categories`), product catalog (`items`), and default quick-reply templates (`replyTemplates`)
+- `js/app.js` — Session/auth handling, `localStorage` persistence (`dokanUsers`, `dokanSession`, `dokanData_<email>`), and page logic
 
-| Role | Member | Pages |
-|---|---|---|
-| Admin | Fahim Muntasir (24-59952-3) | `login.html`, `admin.html` |
-| Seller | Dipta Chowdhury (23-54119-3) | `seller-login.html`, `seller-signup.html`, `items.html`, `price.html`, `flash.html`, `combo.html`, `reply.html`, `goal.html` |
-| Customer | Mehedi Hasan Robel (23-51209-1) | `customer-login.html`, `customer-signup.html`, `customer.html` |
-| Delivery operator | Md. Tanver Ahmed (24-56318-1) | `delivery-login.html`, `delivery-register.html`, `delivery.html` |
+## How to Run
 
-Admin demo login: `admin` / `admin1234`.
-
-## Folder structure
-
-```
-index.html, login.html, admin.html, seller-*.html, customer-*.html, delivery-*.html ...   all pages
-image/   favicon and screenshots
-css/     style.css (home, login, admin), seller.css, customer.css, delivery.css
-js/      data.js, common.js, login.js, admin.js            (home, login, admin)
-         seller-data.js, seller-app.js                     (seller)
-         customer-auth.js, customer.js                     (customer)
-         delivery-data.js, delivery-common.js, delivery-*.js (delivery)
-doc/     each member's CO3 Project Evaluation Sheet
-```
-
-## Rules for the group
-
-- Put your files in the right folder, and start every file name with your role (`seller-`, `customer-`, `delivery-`) so nobody overwrites anyone else.
-- Never upload a file with the same name as an existing one unless it is your own file.
-- Work on your own branch and open a Pull Request. Never commit straight to `main`.
-- Your CO3 form goes in `doc/`, named with your ID, e.g. `CO3_Project_Evaluation_Sheet_<your-id>.docx`.
+1. Extract `Online Marketplace-Seller(Dipta).zip`.
+2. Open `index.html` in a web browser (or serve the folder via a local server such as VS Code Live Server).
+3. Create an account on `signup.html` or log in on `index.html` to open the seller workspace.
