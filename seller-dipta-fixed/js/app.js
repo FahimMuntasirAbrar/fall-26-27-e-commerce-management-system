@@ -143,7 +143,7 @@ if (get("logout")) {
     localStorage.removeItem("dokanSession");
     currentUser = null;
     data = null;
-    window.location.href = "index.html";
+    window.location.href = "seller-login.html";
   });
 }
 
@@ -449,7 +449,7 @@ function updateGoal() {
 const sessionUser = getSessionUser();
 if (page) {
   if (!sessionUser) {
-    window.location.href = "index.html";
+    window.location.href = "seller-login.html";
   } else {
     openApp(sessionUser);
   }

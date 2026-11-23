@@ -4,7 +4,7 @@ A vanilla HTML, CSS, and JavaScript seller web application built for managing se
 
 ## Project Structure
 
-- `index.html` — Seller login page (`#loginForm`)
+- `seller-login.html` — Seller login page (`#loginForm`)
 - `seller-signup.html` — New seller account registration page (`#signupForm`)
 - `items.html` — Product catalog management with category filtering, search, item creation, and deletion
 - `price.html` — Smart price calculator with cost, packaging, courier, platform fee, profit percentage, break-even price, and custom price profit check
@@ -19,5 +19,5 @@ A vanilla HTML, CSS, and JavaScript seller web application built for managing se
 ## How to Run
 
 1. Extract `Online Marketplace-Seller(Dipta).zip`.
-2. Open `index.html` in a web browser (or serve the folder via a local server such as VS Code Live Server).
-3. Create an account on `seller-signup.html` or log in on `index.html` to open the seller workspace.
+2. Open `seller-login.html` in a web browser (or serve the folder via a local server such as VS Code Live Server).
+3. Create an account on `seller-signup.html` or log in on `seller-login.html` to open the seller workspace.
