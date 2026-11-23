@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up - Online Marketplace</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Online Marketplace</h1>
+  </header>
+  <main>
+    <section id="signup" class="auth">
+      <section class="auth-side">
+        <h2>Start selling in minutes.</h2>
+        <p>Create your seller account and add your first item.</p>
+      </section>
+      <form id="signupForm" class="auth-form">
+        <h2>Create seller account</h2>
+        <label for="sName">Your Name</label>
+        <input type="text" id="sName">
+        <span class="error" id="sNameErr"></span>
+        <label for="sShop">Shop Name</label>
+        <input type="text" id="sShop">
+        <span class="error" id="sShopErr"></span>
+        <label for="sEmail">Email</label>
+        <input type="email" id="sEmail">
+        <span class="error" id="sEmailErr"></span>
+        <label for="sPhone">Phone</label>
+        <input type="tel" id="sPhone" placeholder="01XXXXXXXXX">
+        <span class="error" id="sPhoneErr"></span>
+        <label for="sPass">Password</label>
+        <input type="password" id="sPass" placeholder="At least 6 characters">
+        <span class="error" id="sPassErr"></span>
+        <p class="msg" id="sMsg"></p>
+        <button class="btn" type="submit">Sign up</button>
+        <p class="swap">Already a seller? <a href="index.html">Log in</a></p>
+      </form>
+    </section>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
